@@ -30,7 +30,7 @@ async function login() {
 }
 </script>
 <template>
-  <div class="max-w-[1600px] mx-auto font-mont">
+  <div class="w-full mx-auto font-mont">
     <Header />
     <div class="max-w-[500px] p-10 rounded-2xl mx-auto border bg-[#fff]">
       <form @submit.prevent="login" class="space-y-6">

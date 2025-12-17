@@ -1,14 +1,15 @@
 <template>
   <div
-    class="max-w-[1600px] mx-auto grid grid-cols-5 gap-8 bg-[#f8f8f8] font-mont mt-10 p-10 rounded-t-xl"
+    class="w-full mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 bg-[#f8f8f8] font-mont mt-10 p-6 md:p-10 rounded-t-2xl"
   >
-    <div class="col-span-2 space-y-4">
+    <div class="sm:col-span-2 space-y-4">
       <router-link to="/" class="flex items-center space-x-2">
         <span class="text-3xl font-bold text-[#4ECDC4]">BabyLand</span>
       </router-link>
       <p class="text-base text-[#333333]">Ваш надежный магазин товаров для детей.</p>
       <p class="text-base text-[#333333]">Мы заботимся о самом важном!</p>
     </div>
+
     <div class="space-y-3">
       <h3 class="text-xl font-bold text-[#4ECDC4] mb-2">Навигация</h3>
       <div class="flex flex-col space-y-2 text-lg">
@@ -26,6 +27,7 @@
         >
       </div>
     </div>
+
     <div class="space-y-3">
       <h3 class="text-xl font-bold text-[#4ECDC4] mb-2">Информация</h3>
       <div class="flex flex-col space-y-2 text-lg">
@@ -40,13 +42,14 @@
 
     <div class="space-y-3">
       <h3 class="text-xl font-bold text-[#4ECDC4] mb-2">Мы в соцсетях</h3>
-      <div class="flex my-5">
+      <div class="flex flex-wrap gap-4 my-5">
         <svg
-          width="64px"
-          height="64px"
+          width="48px"
+          height="48px"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          class="md:w-[64px] md:h-[64px]"
         >
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -58,11 +61,12 @@
           </g>
         </svg>
         <svg
-          width="64px"
-          height="64px"
+          width="48px"
+          height="48px"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          class="md:w-[64px] md:h-[64px]"
         >
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -77,11 +81,12 @@
           </g>
         </svg>
         <svg
-          width="64px"
-          height="64px"
+          width="48px"
+          height="48px"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          class="md:w-[64px] md:h-[64px]"
         >
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

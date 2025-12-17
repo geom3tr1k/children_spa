@@ -3,6 +3,33 @@ import Footer from '@/components/Footer.vue'
 import Header from '@/components/Header.vue'
 import router from '@/router'
 import { ref, onMounted } from 'vue'
+interface Order {
+  id: number
+  total_price: number
+  status: string
+  created_at: string
+  items: {
+    quantity: number
+    price: number
+    product: {
+      title: string
+    }
+  }[]
+}
+
+const orders = ref<Order[]>([])
+
+async function getOrders() {
+  const response = await fetch('http://127.0.0.1:8000/my-orders', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  })
+
+  if (response.ok) {
+    orders.value = await response.json()
+  }
+}
 
 interface User {
   id: number
@@ -88,9 +115,10 @@ async function updateUser(id: number) {
 }
 
 getUser()
+getOrders()
 </script>
 <template>
-  <div class="max-w-[1600px] mx-auto font-mont">
+  <div class="mx-auto font-mont">
     <Header />
 
     <main class="max-w-[1600px] mx-auto mt-10 grid grid-cols-3 gap-6">
@@ -145,7 +173,25 @@ getUser()
       </section>
       <section class="col-span-2 bg-white border rounded-2xl p-8">
         <h2 class="text-2xl font-bold text-[#333333] mb-6">Мои заказы</h2>
-        <div class="text-gray-500 text-lg">Пока заказов нет</div>
+        <div v-if="!orders.length" class="text-gray-500 text-lg">Пока заказов нет</div>
+
+        <div v-else class="space-y-6">
+          <div v-for="order in orders" :key="order.id" class="border rounded-xl p-4">
+            <div class="flex justify-between mb-2">
+              <div class="font-semibold text-[#333333] text-xl">Заказ №{{ order.id }}</div>
+              <div class="text-gray-500">
+                {{ new Date(order.created_at).toLocaleDateString('ru-RU') }}
+              </div>
+            </div>
+            <ul class="text-sm mb-3 text-gray-500">
+              <li v-for="item in order.items" :key="item.product.title">
+                {{ item.product.title }} × {{ item.quantity }} — {{ item.price * item.quantity }} ₽
+              </li>
+            </ul>
+
+            <div class="font-bold text-right text-[#333333]">Итого: {{ order.total_price }} ₽</div>
+          </div>
+        </div>
       </section>
     </main>
     <div v-if="showModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">

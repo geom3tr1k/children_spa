@@ -4,7 +4,7 @@ import Footer from '@/components/Footer.vue'
 </script>
 
 <template>
-  <div class="max-w-[1600px] mx-auto font-mont">
+  <div class="mx-auto font-mont">
     <Header />
 
     <main class="max-w-[1600px] mx-auto py-10 px-4 md:px-0 bg-white rounded-2xl">

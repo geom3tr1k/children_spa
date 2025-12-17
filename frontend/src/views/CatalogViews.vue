@@ -31,6 +31,30 @@ interface Product {
 }
 const products = ref<Product[]>([])
 
+async function addToCart(productId: number) {
+  const token = localStorage.getItem('token')
+
+  if (!token) {
+    alert('Нужно войти в аккаунт')
+    return
+  }
+
+  const response = await fetch(`http://127.0.0.1:8000/cart/add/${productId}`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+    },
+  })
+
+  if (response.ok) {
+    alert('Товар добавлен в корзину')
+  } else {
+    const error = await response.json()
+    alert(error.message || 'Ошибка')
+  }
+}
+
 async function fetchProducts() {
   const response = await fetch('http://127.0.0.1:8000/products', {
     method: 'GET',
@@ -70,16 +94,16 @@ onMounted(fetchProducts)
 </script>
 
 <template>
-  <div class="max-w-[1600px] mx-auto font-mont">
+  <div class="mx-auto font-mont">
     <Header />
 
-    <main class="max-w-[1600px] mx-auto py-10 px-4 md:px-0 bg-white rounded-2xl">
+    <main class="mx-auto py-10 px-4 md:px-0 rounded-2xl">
       <section class="px-10 mb-10">
-        <h1 class="text-4xl font-bold text-[#333333]">Каталог товаров</h1>
+        <h1 class="text-4xl font-bold text-white">Каталог товаров</h1>
       </section>
 
       <section class="flex gap-10 px-10">
-        <aside class="w-72 border border-[#333333] rounded-2xl p-6 h-fit">
+        <aside class="w-72 border border-[#333333] rounded-2xl p-6 h-fit bg-white">
           <form @submit.prevent="fetchProductsCategory">
             <div class="mb-8">
               <h3 class="text-xl font-semibold text-[#333333] mb-4">Категории</h3>
@@ -137,7 +161,7 @@ onMounted(fetchProducts)
           <div
             v-for="product in sortedProducts"
             :key="product.id"
-            class="border border-[#333333] rounded-2xl p-5 flex flex-col"
+            class="border border-[#333333] rounded-2xl p-5 flex flex-col bg-white"
           >
             <img
               :src="product.image_url"
@@ -149,6 +173,7 @@ onMounted(fetchProducts)
             </p>
             <div class="text-lg font-semibold text-[#333333] mb-4">{{ product.price }} ₽</div>
             <button
+              @click="addToCart(product.id)"
               class="mt-auto py-3 border border-[#333333] text-[#333333] rounded-xl hover:bg-[#333333] hover:text-white transition cursor-pointer"
             >
               В корзину

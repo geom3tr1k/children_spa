@@ -166,7 +166,7 @@ async function deleteProduct(id: number) {
   <div class="max-w-[1600px] mx-auto font-mont">
     <Header />
 
-    <main class="max-w-[1600px] mx-auto mt-10 grid grid-cols-4 gap-6">
+    <main class="mx-auto mt-10 grid grid-cols-4 gap-6">
       <aside class="col-span-1 bg-white border rounded-2xl p-6">
         <h2 class="text-2xl font-bold text-[#333333] mb-6 text-center">Панель администратора</h2>
 

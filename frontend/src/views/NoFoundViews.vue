@@ -4,7 +4,7 @@ import Header from '@/components/Header.vue'
 </script>
 
 <template>
-  <div class="max-w-[1600px] mx-auto font-mont">
+  <div class="mx-auto font-mont">
     <Header />
     <main class="py-20 flex flex-col items-center justify-center min-h-[60vh]">
       <div class="max-w-2xl p-12 rounded-3xl bg-white text-center border-2 border-[#4ECDC4]">

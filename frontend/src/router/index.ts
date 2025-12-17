@@ -1,6 +1,7 @@
 import ABoutUsViews from '@/views/ABoutUsViews.vue'
 import AdminViews from '@/views/AdminViews.vue'
 import BonusViews from '@/views/BonusViews.vue'
+import CartViews from '@/views/CartViews.vue'
 import CatalogViews from '@/views/CatalogViews.vue'
 import ContactsViews from '@/views/ContactsViews.vue'
 import LoginViews from '@/views/LoginViews.vue'
@@ -57,6 +58,11 @@ const router = createRouter({
       path: '/catalog',
       name: 'Catalog',
       component: CatalogViews,
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: CartViews,
     },
     {
       path: '/:pathMatch(.*)*',
