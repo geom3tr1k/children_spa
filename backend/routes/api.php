@@ -20,3 +20,12 @@ Route::get('/admins', [AuthController::class, 'getAdmins'])->middleware('auth:sa
 Route::get('/users', [AuthController::class, 'getUsers'])->middleware('auth:sanctum');
 Route::get('/products', [MainController::class, 'getProduct']);
 Route::get('/products/{category}', [MainController::class, 'getProductCategory']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/cart', [MainController::class, 'index']);
+    Route::post('/cart/add/{product}', [MainController::class, 'add']);
+    Route::post('/cart/decrease/{product}', [MainController::class, 'decrease']);
+    Route::delete('/cart/remove/{product}', [MainController::class, 'remove']);
+    Route::delete('/cart/clear', [MainController::class, 'clear']);
+    Route::post('/checkout', [MainController::class, 'checkout']);
+});
+Route::middleware('auth:sanctum')->get('/my-orders', [MainController::class, 'myOrders']);

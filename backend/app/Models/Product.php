@@ -26,4 +26,14 @@ class Product extends Model
         : url('storage/photo/default.png');
 }
 
+public function cartItems()
+{
+    return $this->hasMany(CartItem::class);
+}
+
+public function orderItems()
+{
+    return $this->hasMany(OrderItem::class);
+}
+
 }
