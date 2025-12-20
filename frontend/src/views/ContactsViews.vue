@@ -7,8 +7,8 @@ import Header from '@/components/Header.vue'
   <div class="mx-auto font-mont">
     <Header />
 
-    <main class="max-w-[1600px] mx-auto py-10 px-4 md:px-0 bg-[#fff] rounded-2xl">
-      <section class="mb-12 px-10">
+    <main class="max-w-[1600px] mx-auto py-10 px-4 md:px-0">
+      <section class="mb-12 p-10 bg-[#fff] rounded-2xl">
         <h1 class="text-4xl font-bold text-[#333333] mb-6">Контакты</h1>
 
         <p class="text-lg text-[#333333] mb-10">
@@ -95,7 +95,7 @@ import Header from '@/components/Header.vue'
         </div>
       </section>
 
-      <section class="bg-[#333333] px-10 rounded-2xl p-8 mx-10">
+      <section class="bg-[#333333] px-10 rounded-2xl p-8">
         <h2 class="text-3xl text-[#fff] mb-6">Информация о "BabyLand"</h2>
 
         <div class="mb-6">

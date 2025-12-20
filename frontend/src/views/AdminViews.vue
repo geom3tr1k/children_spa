@@ -39,7 +39,7 @@ const users = ref<Users[]>([])
 const admins = ref<Admins[]>([])
 
 async function fetchProducts() {
-  const response = await fetch('http://127.0.0.1:8000/products', {
+  const response = await fetch('http://213.171.27.22/products', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -52,7 +52,7 @@ async function fetchProducts() {
 }
 
 async function Users() {
-  const response = await fetch('http://127.0.0.1:8000/users', {
+  const response = await fetch('http://213.171.27.22/users', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -64,7 +64,7 @@ async function Users() {
   }
 }
 async function Admins() {
-  const response = await fetch('http://127.0.0.1:8000/admins', {
+  const response = await fetch('http://213.171.27.22/admins', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -81,7 +81,7 @@ onMounted(Users)
 onMounted(Admins)
 
 async function deleteAdmin(id: number) {
-  const response = await fetch(`http://127.0.0.1:8000/delAdmin/${id}`, {
+  const response = await fetch(`http://213.171.27.22/delAdmin/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -94,7 +94,7 @@ async function deleteAdmin(id: number) {
   }
 }
 async function setAdmin(id: number) {
-  const response = await fetch(`http://127.0.0.1:8000/setAdmin/${id}`, {
+  const response = await fetch(`http://213.171.27.22/setAdmin/${id}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -134,7 +134,7 @@ async function addProduct() {
   if (image.value) formData.append('image', image.value)
   formData.append('material', material.value)
 
-  const response = await fetch(`http://127.0.0.1:8000/add`, {
+  const response = await fetch(`http://213.171.27.22/add`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -149,7 +149,7 @@ async function addProduct() {
   }
 }
 async function deleteProduct(id: number) {
-  const response = await fetch(`http://127.0.0.1:8000/delete/${id}`, {
+  const response = await fetch(`http://213.171.27.22/delete/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -166,8 +166,8 @@ async function deleteProduct(id: number) {
   <div class="max-w-[1600px] mx-auto font-mont">
     <Header />
 
-    <main class="mx-auto mt-10 grid grid-cols-4 gap-6">
-      <aside class="col-span-1 bg-white border rounded-2xl p-6">
+    <main class="mx-auto mt-10 grid grid-cols-1 lg:grid-cols-4 gap-6 px-4 lg:px-0">
+      <aside class="col-span-1 lg:col-span-1 bg-white border rounded-2xl p-4 lg:p-6">
         <h2 class="text-2xl font-bold text-[#333333] mb-6 text-center">Панель администратора</h2>
 
         <nav class="space-y-4">
@@ -197,7 +197,7 @@ async function deleteProduct(id: number) {
         </nav>
       </aside>
 
-      <section class="col-span-3 bg-white border rounded-2xl p-8">
+      <section class="col-span-1 lg:col-span-3 bg-white border rounded-2xl p-4 sm:p-6 lg:p-8">
         <div v-if="activeTab === 'admins'">
           <h2 class="text-2xl font-bold text-[#333333] mb-6">Управление пользователями</h2>
           <h2 class="text-xl font-bold text-[#333333] mb-6">Администраторы</h2>
@@ -224,7 +224,7 @@ async function deleteProduct(id: number) {
             <div
               v-for="user in users"
               :key="user.id"
-              class="flex items-center gap-4 border border-[#333333] rounded-xl p-4 justify-between"
+              class="flex flex-col sm:flex-row sm:items-center gap-4 border border-[#333333] rounded-xl p-4 justify-between"
             >
               <h3 class="text-lg font-semibold text-[#333333]">
                 {{ user.firstName }}
@@ -243,11 +243,11 @@ async function deleteProduct(id: number) {
           <h2 class="text-2xl font-bold text-[#333333] mb-6">Управление товарами</h2>
           <button
             @click="openModal"
-            class="w-80 bg-[#333333] text-white text-lg py-3 rounded-xl hover:bg-white hover:text-[#333333] border border-[#333333] transition mb-3 cursor-pointer"
+            class="w-full sm:w-80 bg-[#333333] text-white text-lg py-3 rounded-xl hover:bg-white hover:text-[#333333] border border-[#333333] transition mb-3 cursor-pointer"
           >
             Добавить товар
           </button>
-          <div class="grid grid-cols-4 gap-6 mt-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
             <div
               v-for="product in products"
               :key="product.id"
@@ -287,7 +287,7 @@ async function deleteProduct(id: number) {
             v-if="showModal"
             class="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
           >
-            <div class="bg-white rounded-2xl w-full max-w-[500px] p-8 relative">
+            <div class="bg-white rounded-2xl w-full max-w-[500px] p-4 sm:p-6 lg:p-8 relative mx-4">
               <h2 class="text-2xl font-bold text-center mb-6 text-[#333333]">
                 Добавить новый товар
               </h2>
@@ -342,7 +342,7 @@ async function deleteProduct(id: number) {
                 </select>
                 <div v-if="errors" class="text-[#FF6B6B]">{{ errors }}</div>
 
-                <div class="flex gap-4 mt-6">
+                <div class="flex flex-col sm:flex-row gap-4 mt-6">
                   <button
                     type="button"
                     @click="closeModal"

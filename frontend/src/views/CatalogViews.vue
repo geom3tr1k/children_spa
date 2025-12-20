@@ -39,7 +39,7 @@ async function addToCart(productId: number) {
     return
   }
 
-  const response = await fetch(`http://127.0.0.1:8000/cart/add/${productId}`, {
+  const response = await fetch(`http://213.171.27.22/cart/add/${productId}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -56,7 +56,7 @@ async function addToCart(productId: number) {
 }
 
 async function fetchProducts() {
-  const response = await fetch('http://127.0.0.1:8000/products', {
+  const response = await fetch('http://213.171.27.22/products', {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -72,7 +72,7 @@ async function fetchProductsCategory() {
     return
   }
   const categoryId = selectedCategory.value
-  const response = await fetch(`http://127.0.0.1:8000/products/${categoryId}`, {
+  const response = await fetch(`http://213.171.27.22/products/${categoryId}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -94,19 +94,21 @@ onMounted(fetchProducts)
 </script>
 
 <template>
-  <div class="mx-auto font-mont">
+  <div class="mx-auto font-mont px-4 sm:px-0">
     <Header />
 
-    <main class="mx-auto py-10 px-4 md:px-0 rounded-2xl">
-      <section class="px-10 mb-10">
-        <h1 class="text-4xl font-bold text-white">Каталог товаров</h1>
+    <main class="mx-auto py-6 sm:py-8 lg:py-10 px-4 md:px-0 rounded-2xl max-w-[1600px]">
+      <section class="px-4 sm:px-6 lg:px-10 mb-6 sm:mb-10">
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">Каталог товаров</h1>
       </section>
 
-      <section class="flex gap-10 px-10">
-        <aside class="w-72 border border-[#333333] rounded-2xl p-6 h-fit bg-white">
+      <section class="flex flex-col lg:flex-row gap-6 lg:gap-10 px-4 sm:px-6 lg:px-10">
+        <aside class="w-full lg:w-72 border border-[#333333] rounded-2xl p-4 sm:p-6 h-fit bg-white">
           <form @submit.prevent="fetchProductsCategory">
             <div class="mb-8">
-              <h3 class="text-xl font-semibold text-[#333333] mb-4">Категории</h3>
+              <h3 class="text-lg sm:text-xl font-semibold text-[#333333] mb-3 sm:mb-4">
+                Категории
+              </h3>
               <div class="space-y-3 text-[#333333]">
                 <label class="flex items-center gap-2 cursor-pointer">
                   <input type="radio" name="category" value="1" v-model="selectedCategory" />
@@ -132,11 +134,11 @@ onMounted(fetchProducts)
             </div>
 
             <div>
-              <h3 class="text-xl font-semibold text-[#333333] mb-4">Цена</h3>
+              <h3 class="text-lg sm:text-xl font-semibold text-[#333333] mb-3 sm:mb-4">Цена</h3>
 
               <select
                 v-model="priceSort"
-                class="w-full border border-[#333333] text-[#333333] rounded-xl px-3 py-2 cursor-pointer"
+                class="w-full border border-[#333333] text-[#333333] rounded-xl px-3 py-2 text-sm sm:text-base cursor-pointer"
               >
                 <option value="none">Без сортировки</option>
                 <option value="cheap">Сначала дешевле</option>
@@ -144,7 +146,7 @@ onMounted(fetchProducts)
               </select>
             </div>
             <button
-              class="mt-7 w-full py-2 border border-[#333333] text-[#333333] rounded-xl hover:bg-[#333333] hover:text-white transition cursor-pointer"
+              class="mt-6 w-full py-2 border border-[#333333] text-[#333333] rounded-xl hover:bg-[#333333] hover:text-white transition cursor-pointer"
             >
               Применить
             </button>
@@ -157,24 +159,28 @@ onMounted(fetchProducts)
             </button>
           </form>
         </aside>
-        <div class="flex-1 grid grid-cols-3 gap-6">
+        <div class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <div
             v-for="product in sortedProducts"
             :key="product.id"
-            class="border border-[#333333] rounded-2xl p-5 flex flex-col bg-white"
+            class="border border-[#333333] rounded-2xl p-4 sm:p-5 flex flex-col bg-white"
           >
             <img
               :src="product.image_url"
-              class="h-44 border border-[#333333] rounded-xl mb-4 flex items-center justify-center text-gray-400 text-sm"
+              class="h-48 sm:h-44 w-full object-cover border border-[#333333] rounded-xl mb-3 sm:mb-4"
             />
-            <h3 class="text-xl font-semibold text-[#333333] mb-2">{{ product.title }}</h3>
-            <p class="text-base text-[#333333] mb-3 line-clamp-3">
+            <h3 class="text-lg sm:text-xl font-semibold text-[#333333] mb-2">
+              {{ product.title }}
+            </h3>
+            <p class="text-sm sm:text-base text-[#333333] mb-3 line-clamp-3">
               {{ product.description }}
             </p>
-            <div class="text-lg font-semibold text-[#333333] mb-4">{{ product.price }} ₽</div>
+            <div class="text-base sm:text-lg font-semibold text-[#333333] mb-3 sm:mb-4">
+              {{ product.price }} ₽
+            </div>
             <button
               @click="addToCart(product.id)"
-              class="mt-auto py-3 border border-[#333333] text-[#333333] rounded-xl hover:bg-[#333333] hover:text-white transition cursor-pointer"
+              class="mt-auto py-2 sm:py-3 border border-[#333333] text-[#333333] rounded-xl hover:bg-[#333333] hover:text-white transition cursor-pointer"
             >
               В корзину
             </button>

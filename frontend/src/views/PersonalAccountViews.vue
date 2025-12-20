@@ -20,7 +20,7 @@ interface Order {
 const orders = ref<Order[]>([])
 
 async function getOrders() {
-  const response = await fetch('http://127.0.0.1:8000/my-orders', {
+  const response = await fetch('http://213.171.27.22/my-orders', {
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
@@ -51,7 +51,7 @@ const password = ref('')
 const avatar = ref<File | null>(null)
 
 async function getUser() {
-  const response = await fetch('http://127.0.0.1:8000/user', {
+  const response = await fetch('http://213.171.27.22/user', {
     method: 'GET',
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   })
@@ -66,7 +66,7 @@ async function getUser() {
 }
 
 async function logOut() {
-  const responce = await fetch('http://127.0.0.1:8000/logout', {
+  const responce = await fetch('http://213.171.27.22/logout', {
     method: 'POST',
     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
   })
@@ -100,7 +100,7 @@ async function updateUser(id: number) {
   if (password.value) formData.append('password', password.value)
   if (avatar.value) formData.append('avatar', avatar.value)
 
-  const response = await fetch(`http://127.0.0.1:8000/upload/${id}`, {
+  const response = await fetch(`http://213.171.27.22/upload/${id}`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -118,30 +118,33 @@ getUser()
 getOrders()
 </script>
 <template>
-  <div class="mx-auto font-mont">
+  <div class="mx-auto font-mont px-4 sm:px-0">
     <Header />
 
-    <main class="max-w-[1600px] mx-auto mt-10 grid grid-cols-3 gap-6">
-      <section class="col-span-1 bg-white border rounded-2xl p-8">
+    <main
+      class="max-w-[1600px] mx-auto mt-6 sm:mt-8 lg:mt-10 grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6"
+    >
+      <section class="col-span-1 bg-white border rounded-2xl p-4 sm:p-6 lg:p-8">
         <h2 class="text-2xl font-bold text-[#333333] mb-6 text-center">Профиль</h2>
 
         <div class="flex flex-col items-center text-center">
           <img
             v-if="user?.avatar_url"
             :src="user.avatar_url"
-            class="w-36 h-36 rounded-full object-cover"
+            class="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-full object-cover"
           />
           <div
             v-else
-            class="w-36 h-36 rounded-full bg-gray-200 flex items-center justify-center mb-4 text-xl text-gray-500"
+            class="w-28 h-28 sm:w-32 sm:h-32 lg:w-36 lg:h-36 rounded-full bg-gray-200 flex items-center justify-center mb-4 text-base sm:text-xl text-gray-500"
           >
             Нет фото
           </div>
 
-          <p class="text-xl font-semibold text-[#333333]">
+          <p class="text-lg sm:text-xl font-semibold text-[#333333]">
+            html Копировать код
             {{ user?.firstName }} {{ user?.lastName }}
           </p>
-          <p class="text-lg text-gray-500 mb-4">
+          <p class="text-base sm:text-lg text-gray-500 mb-4">
             {{ user?.email }}
           </p>
 
@@ -152,7 +155,7 @@ getOrders()
 
           <button
             @click="openModal"
-            class="w-full bg-white text-[#333333] text-lg py-3 rounded-xl border border-[#333333] hover:bg-[#333333] hover:text-white transition mb-3 cursor-pointer"
+            class="w-full bg-white text-[#333333] text-base sm:text-lg py-2 sm:py-3 rounded-xl border border-[#333333] hover:bg-[#333333] hover:text-white transition mb-3 cursor-pointer"
           >
             Редактировать
           </button>
@@ -165,37 +168,41 @@ getOrders()
           </router-link>
           <button
             @click="logOut"
-            class="w-full bg-[#333333] text-white text-lg py-3 rounded-xl hover:bg-white hover:text-[#333333] border border-[#333333] transition mb-3 cursor-pointer"
+            class="w-full bg-white text-[#333333] text-base sm:text-lg py-2 sm:py-3 rounded-xl border border-[#333333] hover:bg-[#333333] hover:text-white transition mb-3 cursor-pointer"
           >
             Выйти
           </button>
         </div>
       </section>
-      <section class="col-span-2 bg-white border rounded-2xl p-8">
+      <section class="col-span-1 lg:col-span-2 bg-white border rounded-2xl p-4 sm:p-6 lg:p-8">
         <h2 class="text-2xl font-bold text-[#333333] mb-6">Мои заказы</h2>
         <div v-if="!orders.length" class="text-gray-500 text-lg">Пока заказов нет</div>
 
         <div v-else class="space-y-6">
-          <div v-for="order in orders" :key="order.id" class="border rounded-xl p-4">
-            <div class="flex justify-between mb-2">
-              <div class="font-semibold text-[#333333] text-xl">Заказ №{{ order.id }}</div>
+          <div v-for="order in orders" :key="order.id" class="border rounded-xl p-4 sm:p-4">
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-1 mb-2">
+              <div class="font-semibold text-[#333333] text-lg sm:text-xl">
+                Заказ №{{ order.id }}
+              </div>
               <div class="text-gray-500">
                 {{ new Date(order.created_at).toLocaleDateString('ru-RU') }}
               </div>
             </div>
-            <ul class="text-sm mb-3 text-gray-500">
+            <ul class="text-sm sm:text-base mb-3 text-gray-500">
               <li v-for="item in order.items" :key="item.product.title">
                 {{ item.product.title }} × {{ item.quantity }} — {{ item.price * item.quantity }} ₽
               </li>
             </ul>
 
-            <div class="font-bold text-right text-[#333333]">Итого: {{ order.total_price }} ₽</div>
+            <div class="font-bold text-right text-base sm:text-lg text-[#333333]">
+              Итого: {{ order.total_price }} ₽
+            </div>
           </div>
         </div>
       </section>
     </main>
     <div v-if="showModal" class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div class="bg-white rounded-2xl w-full max-w-[500px] p-8 relative">
+      <div class="bg-white rounded-2xl w-full max-w-[500px] p-4 sm:p-6 lg:p-8 relative mx-4">
         <h2 class="text-2xl font-bold text-center mb-6 text-[#333333]">Редактирование профиля</h2>
 
         <form class="space-y-4 text-[#333333]" @submit.prevent="updateUser(user!.id)">

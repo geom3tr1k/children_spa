@@ -9,7 +9,7 @@ const password = ref('')
 const serverErrors = ref()
 
 async function login() {
-  const responce = await fetch('http://127.0.0.1:8000/login', {
+  const responce = await fetch('http://213.171.27.22/login', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

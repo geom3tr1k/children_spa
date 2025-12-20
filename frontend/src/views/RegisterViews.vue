@@ -43,7 +43,7 @@ async function register() {
   if (avatar.value) {
     formData.append('avatar', avatar.value)
   }
-  const responce = await fetch('http://127.0.0.1:8000/reg', {
+  const responce = await fetch('http://213.171.27.22/reg', {
     method: 'POST',
     body: formData,
   })
@@ -60,11 +60,13 @@ async function register() {
 }
 </script>
 <template>
-  <div class="mx-auto font-mont">
+  <div class="mx-auto font-mont px-4 sm:px-0">
     <Header />
-    <div class="max-w-[500px] p-10 rounded-2xl mx-auto border bg-[#fff]">
+    <div class="max-w-[500px] p-4 sm:p-6 lg:p-10 rounded-2xl mx-auto border bg-white mt-6 sm:mt-10">
       <form @submit.prevent="register" class="space-y-6">
-        <h1 class="text-3xl font-bold text-center mb-8 text-[#333333]">Зарегистрироваться</h1>
+        <h1 class="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8 text-[#333333]">
+          Зарегистрироваться
+        </h1>
         <div class="space-y-2">
           <label for="firstName" class="block text-lg font-medium text-[#333333]">Имя</label>
           <input
